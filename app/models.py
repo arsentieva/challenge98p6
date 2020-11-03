@@ -41,3 +41,14 @@ class Move(db.Model):
     type = db.Column(db.String(20), nullable=False)
 
     game = db.relationship("Game", backref="move", lazy=True)
+
+    def to_dictionary(self):
+        data = {
+            "type": self.type,
+            "player": self.playerId, 
+        }
+
+        if(self.type != "QUIT"):
+            data["column"]= self.column
+            
+        return data 

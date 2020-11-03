@@ -1,4 +1,4 @@
-from app.models import db, Move
+from app.models import db, Move, Game
 from flask_restx import Resource, Namespace, fields
 from flask_jwt_extended import ( jwt_required, get_jwt_identity)
 from flask_cors import CORS, cross_origin
@@ -17,8 +17,9 @@ class GetMove(Resource):
     @api.response(404, ' Game/moves not found.')
     def get(self, gameId):
         '''Get (sub) list of the moves played.'''
-        games = Game.query.filter(Game.status=="IN_PROGRESS").all()
-        if games == None:
-            return {"message": "No games in progress state found"}, 404
-        # TODO format the output in an array
-        return {"games":"TODO"}
+        moves = Move.query.filter(Move.gameId==gameId).all()
+        if moves == None:
+            return {"message": "Game/moves not found."}, 404
+        
+        moves = [move.to_dictionary() for move in moves]
+        return {"games":moves}
