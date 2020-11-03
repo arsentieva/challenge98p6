@@ -35,9 +35,10 @@ class CreateDropToken(Resource):
         players = api.payload["players"]
         columns = api.payload["columns"]
         rows = api.payload["rows"]
-        if(len(players)<= 1 or (columns != 4) or (rows != 4) ):
+        if(len(players)<= 1 or len(players)>2 or (columns != 4) or (rows != 4) ):
             return {"message": "Malformed request"}, 400
         
+
         player_one = players[0]
         player_two = players[1]
 
@@ -62,10 +63,12 @@ class CreateDropToken(Resource):
         game = Game()
         game.player_one_id = player_one.id
         game.player_two_id = player_two.id
-        game.status = "IN_PROGRESS" #TODO create a const or an enum for the game status
+        game.status = "IN_PROGRESS" #TODO consider creating a const or an enum for the game status
         db.session.add(game)
         db.session.commit()
         token = create_access_token(identity=game.id)
+
+        #TODO create a new empty board , 2D array
 
         return {"gameId": token }
 
