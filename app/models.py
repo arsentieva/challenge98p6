@@ -10,7 +10,18 @@ class Game(db.Model):
     player_one_id = db.Column(db.Integer, db.ForeignKey('players.id'), nullable=False)
     player_two_id = db.Column(db.Integer, db.ForeignKey('players.id'), nullable=False)
     status = db.Column(db.String(20), nullable=False)
+    board = db.Column(db.String(30), nullable=False)
     winner = db.Column(db.String(20))
+
+
+# class Board(db.Model):
+#     __tablename__="boards"
+
+#     id = db.Column(db.Integer, primary_key=True)
+#     game_id = db.Column(db.Integer, db.ForeignKey('games.id'), nullable=False)
+#     state = db.Column(db.String(20), nullable=False)
+
+#     game = db.relationship("Game", backref="board", lazy=True)
 
 
 class Player(db.Model):

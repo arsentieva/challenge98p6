@@ -15,6 +15,7 @@ flask-jwt-extended = "*"
 flask-restx = "*"
 alembic = "*"
 flask-migrate = "*"
+jsonify = "*"
 
 [dev-packages]
 

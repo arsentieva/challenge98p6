@@ -1,4 +1,5 @@
 from app.models import db, Game, Player
+from app.bi.board import Board
 from flask_restx import Resource, Namespace, fields
 from flask_jwt_extended import create_access_token
 from flask_cors import CORS, cross_origin
@@ -30,6 +31,7 @@ class DropToken(Resource):
     @api.expect(create_model)
     @api.response(200, 'OK')
     @api.response(400, 'Malformed request')
+    @api.response(404, '404 - Game/moves not found')
     def post(self):
         '''Create a new game.'''
         players = api.payload["players"]
@@ -64,24 +66,30 @@ class DropToken(Resource):
         game.player_one_id = player_one.id
         game.player_two_id = player_two.id
         game.status = "IN_PROGRESS" #TODO consider creating a const or an enum for the game status
+        board = Board()
+        game.board = board.getNewBoard()
         db.session.add(game)
         db.session.commit()
         token = create_access_token(identity=game.id)
 
-        #TODO create a new empty board , 2D array
-
         return {"gameId": token }
-
 
 @api.route("/<int:game_id>")
 class GetDropTokenByGameId(Resource):
     @api.response(200, 'OK')
-    @api.response(400, 'Malformed request.') # TODO when the key is a not a number
+    @api.response(400, 'Malformed request.')
     @api.response(404, 'Game/moves not found.')
     def get(self, game_id):
         '''Get the state of the game.'''
-        game = Game.query.get(Game.id==game_id)
+        game = Game.query.get(game_id)
+        print(game)
         if game == None:
-            return {"message": "No games in progress state found"}, 404
-        # TODO format the output 
-        return {"players":"TODO"}
+            return {"message": "Game/moves not found"}, 404
+        game_state = {
+            "players": [game.player_one_id, game.player_two_id],
+            "state": game.status,
+        }
+        
+        # check the status of the game to determine what value to assign to "winner"
+
+        return game_state
