@@ -7,8 +7,8 @@ class Game(db.Model):
     __tablename__="games"
 
     id = db.Column(db.Integer, primary_key=True)
-    player_one_id = db.Column(db.Integer, db.ForeignKey('players.id'), nullable=False)
-    player_two_id = db.Column(db.Integer, db.ForeignKey('players.id'), nullable=False)
+    playerOneId = db.Column(db.Integer, db.ForeignKey('players.id'), nullable=False)
+    playerTwoId = db.Column(db.Integer, db.ForeignKey('players.id'), nullable=False)
     status = db.Column(db.String(20), nullable=False)
     board = db.Column(db.String(30), nullable=False)
     winner = db.Column(db.String(20))
@@ -18,7 +18,7 @@ class Game(db.Model):
 #     __tablename__="boards"
 
 #     id = db.Column(db.Integer, primary_key=True)
-#     game_id = db.Column(db.Integer, db.ForeignKey('games.id'), nullable=False)
+#     gameId = db.Column(db.Integer, db.ForeignKey('games.id'), nullable=False)
 #     state = db.Column(db.String(20), nullable=False)
 
 #     game = db.relationship("Game", backref="board", lazy=True)
@@ -35,8 +35,8 @@ class Move(db.Model):
     __tablename__= "moves"
 
     id = db.Column(db.Integer, primary_key=True)
-    player_id = db.Column(db.Integer, db.ForeignKey('players.id'), nullable=False)
-    game_id = db.Column(db.Integer, db.ForeignKey('games.id'), nullable=False)
+    playerId = db.Column(db.Integer, db.ForeignKey('players.id'), nullable=False)
+    gameId = db.Column(db.Integer, db.ForeignKey('games.id'), nullable=False)
     column = db.Column(db.Integer, nullable=False)
     type = db.Column(db.String(20), nullable=False)
 

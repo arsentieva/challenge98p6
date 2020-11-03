@@ -26,22 +26,22 @@ def upgrade():
     )
     op.create_table('games',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('player_one_id', sa.Integer(), nullable=False),
-    sa.Column('player_two_id', sa.Integer(), nullable=False),
+    sa.Column('playerOneId', sa.Integer(), nullable=False),
+    sa.Column('playerTwoId', sa.Integer(), nullable=False),
     sa.Column('status', sa.String(length=20), nullable=False),
     sa.Column('winner', sa.String(length=20), nullable=True),
-    sa.ForeignKeyConstraint(['player_one_id'], ['players.id'], ),
-    sa.ForeignKeyConstraint(['player_two_id'], ['players.id'], ),
+    sa.ForeignKeyConstraint(['playerOneId'], ['players.id'], ),
+    sa.ForeignKeyConstraint(['playerTwoId'], ['players.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('moves',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('player_id', sa.Integer(), nullable=False),
-    sa.Column('game_id', sa.Integer(), nullable=False),
+    sa.Column('playerId', sa.Integer(), nullable=False),
+    sa.Column('gameId', sa.Integer(), nullable=False),
     sa.Column('column', sa.Integer(), nullable=False),
     sa.Column('type', sa.String(length=20), nullable=False),
-    sa.ForeignKeyConstraint(['game_id'], ['games.id'], ),
-    sa.ForeignKeyConstraint(['player_id'], ['players.id'], ),
+    sa.ForeignKeyConstraint(['gameId'], ['games.id'], ),
+    sa.ForeignKeyConstraint(['playerId'], ['players.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###

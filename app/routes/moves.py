@@ -13,9 +13,10 @@ model = api.model("Move", {
 @api.route("/")
 class GetMove(Resource):
     @api.response(200, 'OK')
-    @api.response(404, 'No Games found in progress')
-    def get(self):
-        '''Return all in-progress games.'''
+    @api.response(400, ' Malformed request.')
+    @api.response(404, ' Game/moves not found.')
+    def get(self, gameId):
+        '''Get (sub) list of the moves played.'''
         games = Game.query.filter(Game.status=="IN_PROGRESS").all()
         if games == None:
             return {"message": "No games in progress state found"}, 404

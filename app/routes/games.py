@@ -4,7 +4,7 @@ from flask_restx import Resource, Namespace, fields
 from flask_jwt_extended import create_access_token
 from flask_cors import CORS, cross_origin
 
-api = Namespace('games', description='Create and update user operations')
+api = Namespace('drop_token', description='Create and update user operations')
 
 create_model = api.model("Game", {
                             "players": fields.List(fields.Integer(), required=True, description = "Specify all the player ids", example = [1,2]),
@@ -63,8 +63,8 @@ class DropToken(Resource):
             db.session.commit()
 
         game = Game()
-        game.player_one_id = player_one.id
-        game.player_two_id = player_two.id
+        game.playerOneId = player_one.id
+        game.playerTwoId = player_two.id
         game.status = "IN_PROGRESS" #TODO consider creating a const or an enum for the game status
         board = Board()
         game.board = board.getNewBoard()
@@ -74,19 +74,19 @@ class DropToken(Resource):
 
         return {"gameId": token }
 
-@api.route("/<int:game_id>")
+@api.route("/<int:gameId>")
 class GetDropTokenByGameId(Resource):
     @api.response(200, 'OK')
     @api.response(400, 'Malformed request.')
     @api.response(404, 'Game/moves not found.')
-    def get(self, game_id):
+    def get(self, gameId):
         '''Get the state of the game.'''
-        game = Game.query.get(game_id)
+        game = Game.query.get(gameId)
         print(game)
         if game == None:
             return {"message": "Game/moves not found"}, 404
         game_state = {
-            "players": [game.player_one_id, game.player_two_id],
+            "players": [game.playerOneId, game.playerTwoId],
             "state": game.status,
         }
         
