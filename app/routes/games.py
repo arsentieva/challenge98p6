@@ -13,20 +13,20 @@ create_model = api.model("Game", {
                 )
 
 @api.route("/")
-class GetDropToken(Resource):
+class DropToken(Resource):
     @api.response(200, 'OK')
     @api.response(404, 'No Games found in progress')
     def get(self):
         '''Return all in-progress games.'''
         games = Game.query.filter(Game.status=="IN_PROGRESS").all()
         if games == None:
-            return {"message": "No games in progress state found"}, 404
-        # TODO format the output in an array
-        return {"games":"TODO"}
+            return {"message": "No games in progress state were found"}, 404
+        
+        gameIds = [game.id for game in games]
+
+        return {"games": gameIds}
 
 
-@api.route("/")
-class CreateDropToken(Resource):
     @api.expect(create_model)
     @api.response(200, 'OK')
     @api.response(400, 'Malformed request')
