@@ -1,9 +1,11 @@
 from app.models import db, Game
 
 class Board:
-    layout =[]
+    matrix = []
     gameId = None
     winner = None
+    layout = None
+
 
     def __init__(self, gameId=None):
         if(gameId == None):
@@ -13,17 +15,17 @@ class Board:
 
     def handleMove(self, columnIdx, playerId ):
         if(self.isColumnFull(columnIdx) == False):
-            columnToUpdate = self.layout[columnIdx-1]
-            cells = [cell for cell in columnToUpdate]
 
+            columnToUpdate = self.matrix[columnIdx-1]
+            cells = [cell for cell in columnToUpdate]
             for i in range(len(cells)):
                 cell = cells[i]
-                print(cell)
                 if(cell== "_"):
                     cells[i]=playerId
                     break
 
-            self.layout[columnIdx-1] = " ".join([str(cell) for cell in cells])
+            self.matrix[columnIdx-1] = [cell for cell in cells]
+            self.layout = "".join(str(cell) for cells in self.matrix for cell in cells)
             self.checkForWinner()
             return True
         
@@ -40,21 +42,44 @@ class Board:
 
     # check if the column is full for the passed in column index
     def isColumnFull(self, columnIdx):
-        columnToUpdate = self.layout[columnIdx-1]
-        if(columnToUpdate[-1]!= '_'):
-            print("is full")
+        columnToUpdate = self.matrix[columnIdx-1] # this is the string that represents our column
+        print("print",columnToUpdate)
+        size = len(columnToUpdate)
+        lastCell = columnToUpdate[size-1]
+
+        if(lastCell!= '_'):
             return True
         return False
 
     # initialize the board for a new game
     def getNewBoard(self):
-        self.layout = ["____" for i in range(4)] 
+        rows, cols = (4, 4)
+        self.matrix = [["_" for i in range(cols)] for j in range (rows)] 
+        self.layout = "_"*12 #string representation of the board
 
     # get the state of the board from the database by the provided game id
     def getBoard(self, gameId):
         game = Game.query.get(gameId)
         if (game != None):
-            return game.board
+            storedLayout=game.board
+            self.restoreMatrix(storedLayout)
+            self.layout = storedLayout
+            
+
+    def restoreMatrix(self, layout):
+        rows, cols = (4, 4)
+        k = 0
+        if(len(self.matrix) == 0):
+            self.getNewBoard()
+
+        for i in range(len(self.matrix)):
+            for j in range(len(self.matrix[i])):
+                self.matrix[i][j]= layout[k]
+                k+=1
+
+
+
+
 
 
 

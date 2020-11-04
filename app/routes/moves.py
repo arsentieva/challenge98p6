@@ -77,7 +77,7 @@ class GetMove(Resource):
             moved = board.handleMove(columnIdx, playerId)  
 
             if(moved) :
-                game.board = [board.layout]
+                game.board = board.layout
                 if(board.winner!= None):
                     game.status = "DONE"
                     game.winder = board.winner
@@ -90,9 +90,9 @@ class GetMove(Resource):
                 move.type = "MOVE"
                 db.session.add(move)
                 db.session.commit()
-
+        
         response = "{gameId}/moves/{move_number}".format(gameId=gameId, move_number=move.id)
-
+        
         return {"move":response}
 
 
