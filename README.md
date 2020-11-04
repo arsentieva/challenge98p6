@@ -1,4 +1,4 @@
-details>
+<details>
   <summary>:zap: Challange Requirements</summary>
 
 # Drop-Token
