@@ -89,6 +89,7 @@ class GetDropTokenByGameId(Resource):
             "state": game.status,
         }
         
-        # check the status of the game to determine what value to assign to "winner"
+        if(game.status == "DONE"):
+            game_state["winner"]= game.winner
 
         return game_state

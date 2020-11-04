@@ -24,8 +24,9 @@ def upgrade():
     )
     op.create_table('games',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('playerOneId', sa.Integer(), nullable=True),
-    sa.Column('playerTwoId', sa.Integer(), nullable=True),
+    sa.Column('playerOneId', sa.Integer(), nullable=False),
+    sa.Column('playerTwoId', sa.Integer(), nullable=False),
+    sa.Column('playerQuit', sa.Integer(), nullable=True),
     sa.Column('status', sa.String(length=20), nullable=False),
     sa.Column('board', sa.ARRAY(sa.String(length=20)), nullable=False),
     sa.Column('winner', sa.String(length=20), nullable=True),

@@ -23,7 +23,7 @@ class GetMove(Resource):
             return {"message": "Game/moves not found."}, 404
         
         moves = [move.to_dictionary() for move in moves]
-        return {"games":moves}
+        return {"moves":moves}
 
 
 @api.route("/moves/<int:move_number>")
@@ -122,20 +122,16 @@ class GetMove(Resource):
         ''' Player quits from game.'''
         game = Game.query.get(gameId)
         
-        if (game == None):
+        if (game == None or  (game.playerOneId != playerId and game.playerTwoId != playerId)):
             return {"message":"Game not found or player is not a part of it"}, 404
         
         if(game.status == "DONE"):
             return {"message":"Malformed input."}, 400
 
-        if(game.playerOneId == playerId):
-            game.playerOneId = None
-            game.winner = game.playerTwoId
-        else:
-            game.playerTwoId = None
-            game.winner = game.playerOneId
 
+        game.playerQuit = playerId
         game.status= "DONE"
+        game.winner = game.playerOneId if game.playerTwoId == playerId else game.playerTwoId
 
         move = Move()
         move.gameId = gameId
