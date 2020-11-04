@@ -14,6 +14,8 @@ class Game(db.Model):
     board = db.Column(db.ARRAY(db.String(20)), nullable=False)
     winner = db.Column(db.String(20))
 
+    # def __setattr__(self, updatedBoard):
+    #     self.board = updatedBoard
 
 # class Board(db.Model):
 #     __tablename__="boards"
@@ -38,7 +40,7 @@ class Move(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     playerId = db.Column(db.Integer, db.ForeignKey('players.id'), nullable=False)
     gameId = db.Column(db.Integer, db.ForeignKey('games.id'), nullable=False)
-    column = db.Column(db.Integer, nullable=False)
+    column = db.Column(db.Integer)
     type = db.Column(db.String(20), nullable=False)
     movedOn = db.Column(db.DateTime, default=datetime.utcnow)
 

@@ -37,7 +37,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('playerId', sa.Integer(), nullable=False),
     sa.Column('gameId', sa.Integer(), nullable=False),
-    sa.Column('column', sa.Integer(), nullable=False),
+    sa.Column('column', sa.Integer()),
     sa.Column('type', sa.String(length=20), nullable=False),
     sa.Column('movedOn', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['gameId'], ['games.id'], ),

@@ -3,6 +3,7 @@ from app.models import db, Game
 class Board:
     layout =[]
     gameId = None
+    winner = None
 
     def __init__(self, gameId=None):
         if(gameId == None):
@@ -23,6 +24,8 @@ class Board:
                     break
 
             self.layout[columnIdx-1] = " ".join([str(cell) for cell in cells])
+            self.updateGame()
+            self.checkForWinner()
             return True
         
         return False
@@ -30,9 +33,11 @@ class Board:
 
     def checkForWinner(self):
         pass
+    # TODO check column
+    # TODO check row
+    # TODO check diagonales
 
-    def switchPlayer(self):
-        pass
+
 
     # check if the column is full for the passed in column index
     def isColumnFull(self, columnIdx):
@@ -51,5 +56,9 @@ class Board:
         game = Game.query.get(gameId)
         if (game != None):
             return game.board
+
+    def updateGame(self):
+        pass
+
 
 
