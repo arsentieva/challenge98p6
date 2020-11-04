@@ -6,6 +6,12 @@
 
 </details>
 
+<details>
+  <summary> 🔻 Drop Token API </summary>
+  <img alt="GIF" src="https://github.com/arsentieva/challenge98p6/blob/master/Drop_tokenAPI.png" />
+</details>
+
+---
 
 <details>
   <summary>:zap: Set up information</summary>
@@ -44,7 +50,7 @@
     - open the browser and navigate to http://127.0.0.1:5000/
     - on a successful setup you should get access to the game API routes that have been implemented and can be tested from the browser
 
-
+---
   
 <details>
   <summary>:zap: Flask Back end and PostogreSQL database deployment to Heroku</summary>
@@ -81,9 +87,7 @@
 
 </details>
 
-
-<br/>
-<br/>
+---
 
 <details>
   <summary>:zap: Challenge Requirements</summary>
