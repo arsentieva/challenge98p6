@@ -6,7 +6,7 @@ from flask_cors import CORS, cross_origin
 api = Namespace('moves', description="Game's activities")
 
 model = api.model("Move", {
-                            "name": fields.String( description="User first name.", example="John"),
+                            "column": fields.Integer( description="Specify column number for your move.", example=1),
                           }
                 )
 
@@ -17,6 +17,22 @@ class GetMove(Resource):
     @api.response(404, ' Game/moves not found.')
     def get(self, gameId):
         '''Get (sub) list of the moves played.'''
+        moves = Move.query.filter(Move.gameId==gameId).all()
+        if moves == None:
+            return {"message": "Game/moves not found."}, 404
+        
+        moves = [move.to_dictionary() for move in moves]
+        return {"games":moves}
+        
+
+@api.route("/<int:playerId>")
+class GetMove(Resource):
+    @api.response(200, 'OK')
+    @api.response(400, ' Malformed input. Illegal move.')
+    @api.response(404, ' Game not found or player is not a part of it.')
+    @api.response(409, " Player tried to post when it's not their turn.")
+    def get(self, gameId, playerId):
+        '''Post a move.'''
         moves = Move.query.filter(Move.gameId==gameId).all()
         if moves == None:
             return {"message": "Game/moves not found."}, 404
