@@ -1,4 +1,6 @@
-#Application deployed and live [here](https://drop-token-98p6.herokuapp.com/)
+# Drop Token aka Connect Four game
+
+### Application deployed and running live [here](https://drop-token-98p6.herokuapp.com/)
 
 <details>
   <summary> 🔻 Database schema </summary>
