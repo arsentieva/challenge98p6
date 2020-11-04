@@ -18,12 +18,12 @@ class GetMove(Resource):
     def get(self, gameId):
         '''Get (sub) list of the moves played.'''
         moves = Move.query.filter(Move.gameId==gameId).all()
-        if moves == None:
+        if (moves == None):
             return {"message": "Game/moves not found."}, 404
         
         moves = [move.to_dictionary() for move in moves]
         return {"games":moves}
-        
+
 
 @api.route("/<int:playerId>")
 class GetMove(Resource):
@@ -33,9 +33,15 @@ class GetMove(Resource):
     @api.response(409, " Player tried to post when it's not their turn.")
     def get(self, gameId, playerId):
         '''Post a move.'''
-        moves = Move.query.filter(Move.gameId==gameId).all()
-        if moves == None:
-            return {"message": "Game/moves not found."}, 404
-        
-        moves = [move.to_dictionary() for move in moves]
-        return {"games":moves}
+        moves = Move.query.filter(Move.gameId==gameId).order_by(Move.movedOn.desc())
+        if (moves == None):
+            game = Game.query.get(gameId)
+            if (game == None):
+                return {"message":"Game not found or player is not a part of it"}, 404
+            
+            board = Board(gameId)
+
+            # else:
+                # check that is this players turn
+            
+        return {"games":"TODO"}

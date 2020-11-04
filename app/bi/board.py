@@ -1,11 +1,14 @@
+from app.models import db, Game
+
 class Board:
     layout =[]
+    gameId = null
 
-    def __init__(self, layout=[]):
-        if(len(layout)== 0):
+    def __init__(self, gameId=null):
+        if(gameId == null):
             self.getNewBoard()
         else :
-            this.layout = layout
+            this.layout = self.getBoard(gameId)
 
     def handleMove(self):
         pass
@@ -23,5 +26,10 @@ class Board:
         rows, cols = (4, 4)
         self.layout = [["_" for i in range(cols)] for j in range (rows)] 
 
-    def getBoard(self, currentLayout):
-        pass
+    def getBoard(self, gameId):
+        game = Game.query.get(gameId)
+        if (game == None):
+            return "No game found for the provided game id"
+
+        storedBoard = gameBoard.board
+        print(storedBoard)
