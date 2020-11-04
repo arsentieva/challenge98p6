@@ -58,7 +58,7 @@
 
   ## Install Heroku Postgres add-on for the database
   * From the Heroku account select your project ad under the Overview and Install add-ons section click Configure Add-Ons
-   this will redirect to Resources page, select Find more add-ons and search for Heroku Postgres (choose a plan, i used Hobby Dev which is free) then specify which project/app you want the database to be attached to as a result a new "DATABASE_URL" will be automatically created for the project that will point to this database ( this config var can be found in the Setting tab/ Reveal Congig Vars, if you have other vars that you need to add now it is a good time to do that) 
+   this will redirect to Resources page, select Find more add-ons and search for Heroku Postgres (choose a plan, i used Hobby Dev which is free) then specify which project/app you want the database to be attached to as a result a new "DATABASE_URL" will be automatically created for the project that will point to this database ( this config var can be found in the Setting tab/ Reveal Config Vars, if you have other vars that you need to add now it is a good time to do that) 
 
   I installed the add-on for the database via Heroku UI but here is the equivalent command for the terminal :
   *  ``` heroku addons:create heroku-postgresql:hobby-dev ``` 
