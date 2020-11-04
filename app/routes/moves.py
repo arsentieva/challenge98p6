@@ -91,6 +91,9 @@ class GetMove(Resource):
                 move.type = "MOVE"
                 db.session.add(move)
                 db.session.commit()
+
+            else:
+                return {"message":"Malformed input. Illegal move"}, 400
         
         response = "{gameId}/moves/{move_number}".format(gameId=gameId, move_number=move.id)
         

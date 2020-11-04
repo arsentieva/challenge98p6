@@ -15,7 +15,6 @@ class Board:
 
     def handleMove(self, columnIdx, playerSymbol ):
         if(self.isColumnFull(columnIdx) == False):
-
             columnToUpdate = self.matrix[columnIdx-1]
             cells = [cell for cell in columnToUpdate]
             for i in range(len(cells)):
@@ -34,7 +33,6 @@ class Board:
 
     def checkForWinner(self, columnIdx):
         symbol  = self.checkColumnWin(columnIdx)
-        print("return", symbol)
         if(symbol != None):
             self.winner = symbol
             return 
@@ -53,7 +51,6 @@ class Board:
     # check if the column is full for the passed in column index
     def isColumnFull(self, columnIdx):
         columnToUpdate = self.matrix[columnIdx-1] # this is the string that represents our column
-        print("print",columnToUpdate)
         size = len(columnToUpdate)
         lastCell = columnToUpdate[size-1]
 
