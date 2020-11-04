@@ -24,7 +24,6 @@ class Board:
                     break
 
             self.layout[columnIdx-1] = " ".join([str(cell) for cell in cells])
-            self.updateGame()
             self.checkForWinner()
             return True
         
@@ -36,7 +35,7 @@ class Board:
     # TODO check column
     # TODO check row
     # TODO check diagonales
-
+    # TODO update the winner
 
 
     # check if the column is full for the passed in column index
@@ -57,8 +56,8 @@ class Board:
         if (game != None):
             return game.board
 
-    def updateGame(self):
-        pass
+
+
 
 
 

@@ -58,41 +58,30 @@ class GetMove(Resource):
     @api.response(409, " Player tried to post when it's not their turn.")
     def post(self, gameId, playerId):
         '''Post a move.'''
-        move = Move.query.filter(Move.gameId==gameId).order_by(Move.movedOn.desc()).first()
-        print("moves:", move)
-        if (move == None):
-            game = Game.query.get(gameId)
-            if (game == None):
-                return {"message":"Game not found or player is not a part of it"}, 404
-            
-            if(game.status == "DONE"):
-                return {"message":"Malformed input. Illegal move"}, 400
+        game = Game.query.get(gameId)
+        if (game == None):
+            return {"message":"Game not found or player is not a part of it"}, 404
 
+        if(game.status == "DONE"):
+            return {"message":"Malformed input. Illegal move"}, 400
+
+        move = Move.query.filter(Move.gameId==gameId).order_by(Move.movedOn.desc()).first()
+       
+        #  if there are not moves for this game
+        if (move != None and move.playerId == playerId):
+            return {"message":"Player tried to post when it's not their turn."}, 409
+
+        else :
             board = Board(gameId)
             columnIdx = api.payload["column"]  
-            # print("board before:", board.layout)
-            # print("game board before:", game.board)
             moved = board.handleMove(columnIdx, playerId)  
-            # print(" board after:", board.layout)
-            # print("game board after:", game.board)
-            newBoard = [column for column in board.layout]
-            # print("new board", newBoard)
+
             if(moved) :
-                # game.board = []
-                # game.board = board.layout
-                print("game board update:", game.board)
-                # updateBoard.id = game.id
-                # updateBoard.playerOneId = game.playerOneId
-                # updateBoard.playerTwoId = game.playerTwoId
-                # updateBoard.status = game.status
-                # updateBoard.board.append(board.layout[0]) 
-                # updateBoard.board.append(board.layout[1]) 
-                # updateBoard.board.append(board.layout[2]) 
-                # updateBoard.board.append(board.layout[3])
-                # # updateBoard.board = [column for column in board.layout]
-                # updateBoard.winner = game.winner
-                # setattr(updateBoard, board, board.layout)
-                db.session.commit()
+                game.board = [board.layout]
+                if(board.winner!= None):
+                    game.status = "DONE"
+                    game.winder = board.winner
+
 
                 move = Move()
                 move.gameId = gameId
@@ -102,17 +91,9 @@ class GetMove(Resource):
                 db.session.add(move)
                 db.session.commit()
 
+        response = "{gameId}/moves/{move_number}".format(gameId=gameId, move_number=move.id)
 
-            # else:
-                # check that is this players turn
-
-        elif(move.playerId == playerId):
-            return {"message": "Player tried to post when it's not their turn"}, 409
-
-        # else:
-
-
-        return {"games":"TODO"}
+        return {"move":response}
 
 
     @api.response(200, 'OK')
