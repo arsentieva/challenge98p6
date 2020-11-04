@@ -20,7 +20,8 @@
   
 
   ### Application setup
-    - in the challange98p6 folder create a .env file and copy the setup from .env.example and paste it into .env
+    - in the application root folder enter ''' pipenv install '''
+    - in the application root folder  create a .env file and copy the setup from .env.example and paste it into .env
 
   ### Create and migrate database tables
     -  from the application root folder run ''' pipenv shell '''  to enter the virtual environment
