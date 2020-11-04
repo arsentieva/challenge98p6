@@ -32,7 +32,7 @@ class GetMove(Resource):
     @api.response(400, ' Malformed request.')
     @api.response(404, ' Game/moves not found.')
     def get(self, gameId, move_number):
-        '''Get (sub) list of the moves played.'''
+        ''' Return the move..'''
         move = Move.query.get(move_number)
         if (move == None):
             return {"message": "Game/moves not found."}, 404
@@ -103,3 +103,21 @@ class GetMove(Resource):
                 # check that is this players turn
             
         return {"games":"TODO"}
+
+
+    @api.response(200, 'OK')
+    @api.response(404, ' Game not found or player is not a part of it.')
+    def delete(self, gameId, playerId):
+        ''' Player quits from game.'''
+        game = Game.query.get(gameId)
+
+        if (game == None or  (game.playerOneId != playerId and game.playerTwoId != playerId)):
+            return {"message":"Game not found or player is not a part of it"}, 404
+        if(game.playerOneId == playerId):
+            game.playerOneId = None
+        else:
+            game.playerTwoId = None
+        db.session.commit()
+
+
+    

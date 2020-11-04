@@ -8,8 +8,8 @@ class Game(db.Model):
     __tablename__="games"
 
     id = db.Column(db.Integer, primary_key=True)
-    playerOneId = db.Column(db.Integer, db.ForeignKey('players.id'), nullable=False)
-    playerTwoId = db.Column(db.Integer, db.ForeignKey('players.id'), nullable=False)
+    playerOneId = db.Column(db.Integer, db.ForeignKey('players.id'))
+    playerTwoId = db.Column(db.Integer, db.ForeignKey('players.id'))
     status = db.Column(db.String(20), nullable=False)
     board = db.Column(db.ARRAY(db.String(20)), nullable=False)
     winner = db.Column(db.String(20))
