@@ -4,7 +4,7 @@ from flask_restx import Resource, Namespace, fields
 from flask_jwt_extended import ( jwt_required, get_jwt_identity)
 from flask_cors import CORS, cross_origin
 
-api = Namespace('moves', description="Game's activities")
+api = Namespace('moves', description="Game activities")
 
 model = api.model("Move", {
                             "column": fields.Integer( description="Specify column number for your move.", example=1),

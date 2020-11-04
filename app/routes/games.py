@@ -81,7 +81,6 @@ class GetDropTokenByGameId(Resource):
     def get(self, gameId):
         '''Get the state of the game.'''
         game = Game.query.get(gameId)
-        print(game)
         if game == None:
             return {"message": "Game/moves not found"}, 404
         game_state = {

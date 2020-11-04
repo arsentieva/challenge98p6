@@ -92,15 +92,12 @@ class Board:
 
     def checkColumnWin(self, columnIdx):
         column = self.matrix[columnIdx-1]
-        print("C:" , column)
         columnSymbol = set(column[0])
         if( column[0] == "_"):
             return None
 
         for i in range(len(column)-1):
             symbol = column[i+1]
-            print("s:" , columnSymbol)
-            print("sb:" , symbol)
             if(symbol not in columnSymbol):
                 return None
         
