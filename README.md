@@ -36,7 +36,7 @@
 
 
   
-<details>
+</details>
 
 <details>
   <summary>:zap: Challange Requirements</summary>
