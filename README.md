@@ -1,3 +1,9 @@
+
+<details>
+  <summary>:zap: Set up infromation</summary>
+  
+<details>
+
 <details>
   <summary>:zap: Challange Requirements</summary>
 
