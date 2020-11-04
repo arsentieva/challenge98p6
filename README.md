@@ -1,5 +1,11 @@
 #Application deployed and live [here](https://drop-token-98p6.herokuapp.com/)
 
+<details>
+  <summary> 🔻 Database schema </summary>
+  <img alt="GIF" src="https://github.com/arsentieva/challenge98p6/blob/master/drop_token.png" />
+
+</details>
+
 
 <details>
   <summary>:zap: Set up information</summary>
