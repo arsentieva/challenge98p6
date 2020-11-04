@@ -22,19 +22,19 @@
   
 
   ### Application setup
-    - in the application root folder enter ''' pipenv install '''
+    - in the application root folder enter ``` pipenv install ```
     - in the application root folder  create a .env file and copy the setup from .env.example and paste it into .env
 
   ### Create and migrate database tables
-    -  from the application root folder run ''' pipenv shell '''  to enter the virtual environment
+    -  from the application root folder run ``` pipenv shell ```  to enter the virtual environment
  
     ``` pipenv run flask db upgrade ```
 
     - after this your database should be ready to play the game
 
   ### Running the application
-    -  from the application root folder run ''' pipenv shell '''  to enter the virtual environment if it is not still active 
-    - ''' flask run ''' to run the application 
+    -  from the application root folder run ``` pipenv shell ```  to enter the virtual environment if it is not still active 
+    - ``` flask run ``` to run the application 
     - open the browser and navigate to http://127.0.0.1:5000/
     - on a successful setup you should get access to the game API routes that have been implemented and can be tested from the browser
 
@@ -49,23 +49,23 @@
   * in your config file make sure to use DATABASE_URL (this var will be dynamically populated when run in development vs production )
 
   ## heroku configuration
-  * in your application install gunicorn by running ''' pipenv install gunicorn '''
-  * in the root directory add a file named Procfile and add the following code to it : ''' web: gunicorn app:app '''
+  * in your application install gunicorn by running ``` pipenv install gunicorn ```
+  * in the root directory add a file named Procfile and add the following code to it : ``` web: gunicorn app:app ```
 
-  * in the terminal type ''' heroku login ''' to make sure you are logged in
-  * run ''' heroku create drop-token-98p6 ''' to create an application in heroku named "drop-token-98p6"
-  * run ''' git push heroku master '''
+  * in the terminal type ``` heroku login ``` to make sure you are logged in
+  * run ``` heroku create drop-token-98p6 ``` to create an application in heroku named "drop-token-98p6"
+  * run ``` git push heroku master ```
 
   ## Install Heroku Postgres add-on for the database
   * From the Heroku account select your project ad under the Overview and Install add-ons section click Configure Add-Ons
    this will redirect to Resources page, select Find more add-ons and search for Heroku Postgres (choose a plan, i used Hobby Dev which is free) then specify which project/app you want the database to be attached to as a result a new "DATABASE_URL" will be automatically created for the project that will point to this database ( this config var can be found in the Setting tab/ Reveal Congig Vars, if you have other vars that you need to add now it is a good time to do that) 
 
   I installed the add-on for the database via Heroku UI but here is the equivalent command for the terminal :
-  *  ''' heroku addons:create heroku-postgresql:hobby-dev ''' 
+  *  ``` heroku addons:create heroku-postgresql:hobby-dev ``` 
 
   ## Migrate and Create your tables
-  * run ''' heroku run flask db upgrade ''' this should create all the tables for your application
-  * if you have seed data in a file like databse.py you can runn it ''' heroku run python database.py '''
+  * run ``` heroku run flask db upgrade ``` this should create all the tables for your application
+  * if you have seed data in a file like databse.py you can runn it ``` heroku run python database.py ```
 
   You are all set
 
