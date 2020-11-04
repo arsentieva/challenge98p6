@@ -33,8 +33,8 @@ class Board:
 
 
     def checkForWinner(self, columnIdx):
-        symbol = None
-        columnWinSymbol = self.checkColumnWin(columnIdx)
+        symbol  = self.checkColumnWin(columnIdx)
+        print("return", symbol)
         if(symbol != None):
             self.winner = symbol
             return 
@@ -88,23 +88,25 @@ class Board:
 
     def checkColumnWin(self, columnIdx):
         column = self.matrix[columnIdx-1]
+        print("C:" , column)
         columnSymbol = set(column[0])
         if( column[0] == "_"):
             return None
 
         for i in range(len(column)-1):
-            symbol = column[+1]
+            symbol = column[i+1]
+            print("s:" , columnSymbol)
+            print("sb:" , symbol)
             if(symbol not in columnSymbol):
                 return None
         
-        return columnSymbol
+        return columnSymbol.pop()
 
     def checkForRowWin(self):
         row = set()
         j = 0
         while( j <= (len(self.matrix)-1)):
             for i in range(len(self.matrix)):
-                print(j, i)
                 symbol = self.matrix[i][j]
                 row.add(symbol)
             

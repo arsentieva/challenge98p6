@@ -38,7 +38,7 @@ class DropToken(Resource):
         players = api.payload["players"]
         columns = api.payload["columns"]
         rows = api.payload["rows"]
-        if(len(players)<= 1 or len(players)>2 or (columns != 4) or (rows != 4) ):
+        if(len(players)<= 1 or len(players)>2 or (columns != 4) or (rows != 4) or players[0] == players[1]):
             return {"message": "Malformed request"}, 400
         
 
