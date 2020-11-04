@@ -1,4 +1,4 @@
-from app.models import db, Move, Game
+from app.models import db, Move, Game, Player
 from app.bi.board import Board
 from flask_restx import Resource, Namespace, fields
 from flask_jwt_extended import ( jwt_required, get_jwt_identity)
@@ -73,14 +73,15 @@ class GetMove(Resource):
 
         else :
             board = Board(gameId)
-            columnIdx = api.payload["column"]  
-            moved = board.handleMove(columnIdx, playerId)  
+            columnIdx = api.payload["column"] 
+            player = Player.query.get(playerId)
+            moved = board.handleMove(columnIdx, player.symbol)  
 
             if(moved) :
                 game.board = board.layout
                 if(board.winner!= None):
                     game.status = "DONE"
-                    game.winder = board.winner
+                    game.winner = board.winner
 
 
                 move = Move()
