@@ -2,9 +2,16 @@
 <details>
   <summary>:zap: Set up information</summary>
 
-  This challenge was implemented using the following :
-  * Flask - RESTx package to build REST  APIS routes
-  * SQLAlchemy package for SQL support of the application
+  This challenge was implemented using the following packages and libraries:
+  * Flask 
+  * python-dotenv
+  * psycopg2-binary
+  * SQLAlchemy
+  * flask-restx
+  * alembic
+  * Flask-Migrate
+  * python_version = "3.8"
+
   * PostgreSQL database for data storage
 
   ### Database set up
@@ -38,8 +45,13 @@
   
 </details>
 
+
+
+<br/>
+<br/>
+
 <details>
-  <summary>:zap: Challange Requirements</summary>
+  <summary>:zap: Challenge Requirements</summary>
 
 # Drop-Token
 implement a backend (REST web-service) that allows playing the game of 9dt, or 98point6 drop token. This should allow the players to create games, post moves, query moves and get state of games.
