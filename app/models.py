@@ -30,7 +30,7 @@ class Player(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     # name = db.Column(db.String(50), nullable=False)
-    symbol = db.Column(db.String(10), nullable=False)
+    # symbol = db.Column(db.String(10), nullable=False)
 
 class Move(db.Model):
     __tablename__= "moves"
