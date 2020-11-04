@@ -11,7 +11,7 @@ class Game(db.Model):
     playerOneId = db.Column(db.Integer, db.ForeignKey('players.id'), nullable=False)
     playerTwoId = db.Column(db.Integer, db.ForeignKey('players.id'), nullable=False)
     status = db.Column(db.String(20), nullable=False)
-    board = db.Column(db.String(100), nullable=False)
+    board = db.Column(db.ARRAY(db.String(20)), nullable=False)
     winner = db.Column(db.String(20))
 
 

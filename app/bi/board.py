@@ -23,13 +23,12 @@ class Board:
         pass
 
     def getNewBoard(self):
-        rows, cols = (4, 4)
-        self.layout = [["_" for i in range(cols)] for j in range (rows)] 
+        self.layout = ["____" for i in range(4)] 
 
     def getBoard(self, gameId):
         game = Game.query.get(gameId)
         if (game == None):
             return "No game found for the provided game id"
 
-        storedBoard = game.board
-        print(storedBoard)
+        return game.board
+

@@ -42,7 +42,8 @@ class GetMove(Resource):
                 return {"message":"Game not found or player is not a part of it"}, 404
             
             board = Board(gameId)
-            print("board", board)
+            
+            print("board", board.layout)
 
             # else:
                 # check that is this players turn
