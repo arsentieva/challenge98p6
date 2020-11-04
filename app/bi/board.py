@@ -58,6 +58,13 @@ class Board:
             return True
         return False
 
+    def isBoardFull(self):
+        for i in range(len(self.matrix)):
+            if(self.isColumnFull(i) == False):
+                return False
+            
+        return True
+
     # initialize the board for a new game
     def getNewBoard(self):
         rows, cols = (4, 4)

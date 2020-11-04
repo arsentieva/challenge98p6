@@ -79,10 +79,14 @@ class GetMove(Resource):
 
             if(moved) :
                 game.board = board.layout
+
                 if(board.winner!= None):
                     game.status = "DONE"
                     game.winner = board.winner
-
+                
+                elif(board.isBoardFull()):
+                    game.status = "DONE"
+                    game.winner = None
 
                 move = Move()
                 move.gameId = gameId
@@ -91,14 +95,12 @@ class GetMove(Resource):
                 move.type = "MOVE"
                 db.session.add(move)
                 db.session.commit()
+                response = "{gameId}/moves/{move_number}".format(gameId=gameId, move_number=move.id)
+                return {"move": response}
 
             else:
                 return {"message":"Malformed input. Illegal move"}, 400
         
-        response = "{gameId}/moves/{move_number}".format(gameId=gameId, move_number=move.id)
-        
-        return {"move":response}
-
 
     @api.response(200, 'OK')
     @api.response(400, ' Malformed input.')
