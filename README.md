@@ -25,13 +25,7 @@
 
   ### Create and migrate database tables
     -  from the application root folder run ''' pipenv shell '''  to enter the virtual environment
-    1. initialize local Alembic
-     ``` pipenv run flask db init ```
-
-    2. create migration file
-    ``` pipenv run flask db migrate -m "create dp9 tables" ```
-
-    3. run migration file
+ 
     ``` pipenv run flask db upgrade ```
 
     - after this your database should be ready to play the game
