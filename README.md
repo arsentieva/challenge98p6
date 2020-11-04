@@ -72,8 +72,39 @@ implement a backend (REST web-service) that allows playing the game of 9dt, or 9
 
 
 #### POST /drop_token/{gameId}/{playerId} - Post a move.
-#### GET /drop_token/{gameId}/moves/{move_number} - Return the move.
-#### DELETE /drop_token/{gameId}/{playerId} - Player quits from game.
+ => {
+      "column" : 2
+    }
 
+ <=> {
+        "move": "{gameId}/moves/{move_number}"
+     }
+
+    * #### Status codes ####
+    * 200 - OK. On success
+    * 400 - Malformed input. Illegal move
+    * 404 - Game not found or player is not a part of it.
+    * 409 - Player tried to post when it's not their turn.
+ 
+
+#### GET /drop_token/{gameId}/moves/{move_number} - Return the move.
+ <=>  {
+        "type" : "MOVE",
+        "player": "player1",
+        "column": 2
+      }
+
+    * #### Status codes ####
+    * 200 - OK. On success
+    * 400 - Malformed request
+    * 404 - Game/moves not found.
+
+
+#### DELETE /drop_token/{gameId}/{playerId} - Player quits from game.
+ <=> 
+   * #### Status codes ####
+   * 202 - OK. On success
+   * 404 - Game not found or player is not a part of it.
+   * 410 - Game is already in DONE state
 
 

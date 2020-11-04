@@ -4,7 +4,8 @@ from flask_restx import Resource, Namespace, fields
 from flask_jwt_extended import create_access_token
 from flask_cors import CORS, cross_origin
 
-api = Namespace('drop_token', description='Create and update user operations')
+
+api = Namespace('drop_token', description='Create and play drop token game aka connect four')
 
 create_model = api.model("Game", {
                             "players": fields.List(fields.Integer(), required=True, description = "Specify all the player ids", example = [1,2]),
@@ -48,8 +49,7 @@ class DropToken(Resource):
         if player_one == None:
             player_one = Player()
             player_one.id = players[0]
-            player_one.name = "TODO"
-            player_one.color = "TODO"
+            player_one.symbol = "X"
             db.session.add(player_one)
             db.session.commit()
 
@@ -57,8 +57,7 @@ class DropToken(Resource):
         if player_two == None:
             player_two = Player()
             player_two.id = players[1]
-            player_two.name = "TODO"
-            player_two.color = "TODO"
+            player_two.symbol = "O"
             db.session.add(player_two)
             db.session.commit()
 
@@ -67,7 +66,7 @@ class DropToken(Resource):
         game.playerTwoId = player_two.id
         game.status = "IN_PROGRESS" #TODO consider creating a const or an enum for the game status
         board = Board()
-        game.board = board.getNewBoard()
+        game.board = board.layout
         db.session.add(game)
         db.session.commit()
         token = create_access_token(identity=game.id)

@@ -20,6 +20,6 @@ jwt = JWTManager(app)
 
 api = Api(app)
 api.add_namespace(game)
-api.add_namespace(move, path="/drop_token/<int:gameId>/moves")
+api.add_namespace(move, path="/drop_token/<int:gameId>")
 
 migrate = Migrate(app, db)

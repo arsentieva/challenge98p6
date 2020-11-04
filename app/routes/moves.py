@@ -3,14 +3,14 @@ from flask_restx import Resource, Namespace, fields
 from flask_jwt_extended import ( jwt_required, get_jwt_identity)
 from flask_cors import CORS, cross_origin
 
-api = Namespace('moves', description='Create and update user operations')
+api = Namespace('moves', description="Game's activities")
 
 model = api.model("Move", {
                             "name": fields.String( description="User first name.", example="John"),
                           }
                 )
 
-@api.route("/")
+@api.route("/moves")
 class GetMove(Resource):
     @api.response(200, 'OK')
     @api.response(400, ' Malformed request.')

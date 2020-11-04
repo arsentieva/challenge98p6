@@ -3,7 +3,7 @@ class Board:
 
     def __init__(self, layout=[]):
         if(len(layout)== 0):
-            self.getNewBoard(self)
+            self.getNewBoard()
         else :
             this.layout = layout
 
