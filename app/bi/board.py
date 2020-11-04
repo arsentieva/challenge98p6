@@ -2,13 +2,13 @@ from app.models import db, Game
 
 class Board:
     layout =[]
-    gameId = null
+    gameId = None
 
-    def __init__(self, gameId=null):
-        if(gameId == null):
+    def __init__(self, gameId=None):
+        if(gameId == None):
             self.getNewBoard()
         else :
-            this.layout = self.getBoard(gameId)
+            self.layout = self.getBoard(gameId)
 
     def handleMove(self):
         pass
@@ -31,5 +31,5 @@ class Board:
         if (game == None):
             return "No game found for the provided game id"
 
-        storedBoard = gameBoard.board
+        storedBoard = game.board
         print(storedBoard)

@@ -1,4 +1,5 @@
 from app.models import db, Move, Game
+from app.bi.board import Board
 from flask_restx import Resource, Namespace, fields
 from flask_jwt_extended import ( jwt_required, get_jwt_identity)
 from flask_cors import CORS, cross_origin
@@ -33,13 +34,15 @@ class GetMove(Resource):
     @api.response(409, " Player tried to post when it's not their turn.")
     def get(self, gameId, playerId):
         '''Post a move.'''
-        moves = Move.query.filter(Move.gameId==gameId).order_by(Move.movedOn.desc())
-        if (moves == None):
+        moves = Move.query.filter(Move.gameId==gameId).order_by(Move.movedOn.desc()).all()
+        print("moves:", moves)
+        if (len(moves) == 0):
             game = Game.query.get(gameId)
             if (game == None):
                 return {"message":"Game not found or player is not a part of it"}, 404
             
             board = Board(gameId)
+            print("board", board)
 
             # else:
                 # check that is this players turn
