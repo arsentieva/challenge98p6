@@ -2,7 +2,6 @@ from app.models import db, Game, Player
 from app.bi.board import Board
 from flask_restx import Resource, Namespace, fields
 from flask_jwt_extended import create_access_token
-from flask_cors import CORS, cross_origin
 
 
 api = Namespace('drop_token', description='Create and play drop token game aka connect four')

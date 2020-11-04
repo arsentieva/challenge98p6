@@ -1,6 +1,40 @@
 
 <details>
-  <summary>:zap: Set up infromation</summary>
+  <summary>:zap: Set up information</summary>
+
+  This challenge was implemented using the following :
+  * Flask - RESTx package to build REST  APIS routes
+  * SQLAlchemy package for SQL support of the application
+  * PostgreSQL database for data storage
+
+  ### Database set up
+  - create a user named 'drop_token_admin' with password "password"
+  - create a database named 'drop_token_db' and "drop_token_admin" as owner
+  
+
+  ### Application setup
+    - in the challange98p6 folder create a .env file and copy the setup from .env.example and paste it into .env
+
+  ### Create and migrate database tables
+    -  from the application root folder run ''' pipenv shell '''  to enter the virtual environment
+    1. initialize local Alembic
+     ``` pipenv run flask db init ```
+
+    2. create migration file
+    ``` pipenv run flask db migrate -m "create dp9 tables" ```
+
+    3. run migration file
+    ``` pipenv run flask db upgrade ```
+
+    - after this your database should be ready to play the game
+
+  ### Running the application
+    -  from the application root folder run ''' pipenv shell '''  to enter the virtual environment if it is not still active 
+    - ''' flask run ''' to run the application 
+    - open the browser and navigate to http://127.0.0.1:5000/
+    - on a succesful setup you should get access to the game API routes that have been implemented and can be tested from the browser
+
+
   
 <details>
 

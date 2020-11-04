@@ -1,8 +1,7 @@
 from app.models import db, Move, Game, Player
 from app.bi.board import Board
 from flask_restx import Resource, Namespace, fields
-from flask_jwt_extended import ( jwt_required, get_jwt_identity)
-from flask_cors import CORS, cross_origin
+
 
 api = Namespace('moves', description="Game activities")
 
