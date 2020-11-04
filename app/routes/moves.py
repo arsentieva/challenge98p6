@@ -28,11 +28,12 @@ class GetMove(Resource):
 
 @api.route("/<int:playerId>")
 class GetMove(Resource):
+    @api.expect(model)
     @api.response(200, 'OK')
     @api.response(400, ' Malformed input. Illegal move.')
     @api.response(404, ' Game not found or player is not a part of it.')
     @api.response(409, " Player tried to post when it's not their turn.")
-    def get(self, gameId, playerId):
+    def post(self, gameId, playerId):
         '''Post a move.'''
         moves = Move.query.filter(Move.gameId==gameId).order_by(Move.movedOn.desc()).all()
         print("moves:", moves)
@@ -42,8 +43,10 @@ class GetMove(Resource):
                 return {"message":"Game not found or player is not a part of it"}, 404
             
             board = Board(gameId)
-            
-            print("board", board.layout)
+            columnIdx = api.payload["column"]  
+            board.handleMove(columnIdx, playerId)  
+            print(board.layout)      
+
 
             # else:
                 # check that is this players turn
