@@ -2,7 +2,7 @@
 
 <details>
   <summary> 🔻 Database schema </summary>
-  <img align="left" alt="GIF" src="https://github.com/arsentieva/challenge98p6/blob/master/drop_token.png" />
+  <img alt="GIF" src="https://github.com/arsentieva/challenge98p6/blob/master/drop_token.png" />
 
 </details>
 
