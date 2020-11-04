@@ -1,3 +1,12 @@
+
+<details>
+  <summary>:zap: Set up infromation</summary>
+  
+<details>
+
+<details>
+  <summary>:zap: Challange Requirements</summary>
+
 # Drop-Token
 implement a backend (REST web-service) that allows playing the game of 9dt, or 98point6 drop token. This should allow the players to create games, post moves, query moves and get state of games.
 
@@ -106,5 +115,8 @@ implement a backend (REST web-service) that allows playing the game of 9dt, or 9
    * 202 - OK. On success
    * 404 - Game not found or player is not a part of it.
    * 410 - Game is already in DONE state
+   
+
+</details>
 
 
