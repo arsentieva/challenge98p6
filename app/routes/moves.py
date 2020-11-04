@@ -26,6 +26,29 @@ class GetMove(Resource):
         return {"games":moves}
 
 
+@api.route("/moves/<int:move_number>")
+class GetMove(Resource):
+    @api.response(200, 'OK')
+    @api.response(400, ' Malformed request.')
+    @api.response(404, ' Game/moves not found.')
+    def get(self, gameId, move_number):
+        '''Get (sub) list of the moves played.'''
+        move = Move.query.get(move_number)
+        if (move == None):
+            return {"message": "Game/moves not found."}, 404
+        
+        elif (move.gameId != gameId):
+            return {"message": " Malformed request."}, 400
+
+        data = {
+            "type": move.type,
+            "player": move.playerId,
+            "column": move.column
+        }
+        
+        return data
+
+
 @api.route("/<int:playerId>")
 class GetMove(Resource):
     @api.expect(model)
@@ -42,10 +65,38 @@ class GetMove(Resource):
             if (game == None):
                 return {"message":"Game not found or player is not a part of it"}, 404
             
+            print("board: ", game.board)
+            updateBoard = db.session.query(Game).filter(Game.id==gameId).first()
             board = Board(gameId)
             columnIdx = api.payload["column"]  
-            board.handleMove(columnIdx, playerId)  
-            print(board.layout)      
+            print(columnIdx)
+            moved = board.handleMove(columnIdx, playerId)  
+            newBoard = [column for column in board.layout]
+            # print("new board", newBoard)
+            print(type(board.layout))
+            print(type(newBoard))
+            if(moved) :
+                # game.board = board.layout
+                updateBoard.id = game.id
+                updateBoard.playerOneId = game.playerOneId
+                updateBoard.playerTwoId = game.playerTwoId
+                updateBoard.status = game.status
+                updateBoard.board.append(board.layout[0]) 
+                updateBoard.board.append(board.layout[1]) 
+                updateBoard.board.append(board.layout[2]) 
+                updateBoard.board.append(board.layout[3])
+                # updateBoard.board = [column for column in board.layout]
+                updateBoard.winner = game.winner
+                # setattr(updateBoard, board, board.layout)
+                db.session.commit()
+
+                move = Move()
+                move.gameId = gameId
+                move.playerId = playerId
+                move.column = columnIdx
+                move.type = "MOVE"
+                db.session.add(move)
+                db.session.commit()
 
 
             # else:
